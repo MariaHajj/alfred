@@ -3,8 +3,8 @@ import os
 from PIL import Image
 
 from flask_login import current_user
-from boilerplate.tests import BaseTestCase
-from boilerplate.dao.users import user_dao
+from alfred.tests import BaseTestCase
+from alfred.dao.users import user_dao
 from werkzeug.datastructures import FileStorage
 
 
@@ -155,13 +155,56 @@ class LoginTests(BaseTestCase):
 
 
 class RegisterationTests(BaseTestCase):
-    def test_incorrect_register_username_empty(self):
+    def test_incorrect_register_aub_id_empty(self):
         with self.client:
             response = self.client.post(
                 '/register',
                 data=dict(
-                    username="", email="test@gmail.com", password="test",
-                    confirm_password="test"
+                    aub_id='', email="test@gmail.com",
+                    first_name="Test", last_name="Test", major="cmps",
+                    password="test", confirm_password="test"
+                )
+            )
+            self.assertIn(b'This field is required.', response.data)
+            self.assertFalse(current_user.is_active)
+            self.assertFalse(current_user.is_authenticated)
+
+    def test_incorrect_register_first_name_empty(self):
+        with self.client:
+            response = self.client.post(
+                '/register',
+                data=dict(
+                    aub_id=1234, email="test@gmail.com",
+                    first_name="", last_name="Test", major="cmps",
+                    password="test", confirm_password="test"
+                )
+            )
+            self.assertIn(b'This field is required.', response.data)
+            self.assertFalse(current_user.is_active)
+            self.assertFalse(current_user.is_authenticated)
+
+    def test_incorrect_register_last_name_empty(self):
+        with self.client:
+            response = self.client.post(
+                '/register',
+                data=dict(
+                    aub_id=1234, email="test@gmail.com",
+                    first_name="Test", last_name="", major="cmps",
+                    password="test", confirm_password="test"
+                )
+            )
+            self.assertIn(b'This field is required.', response.data)
+            self.assertFalse(current_user.is_active)
+            self.assertFalse(current_user.is_authenticated)
+
+    def test_incorrect_register_major_empty(self):
+        with self.client:
+            response = self.client.post(
+                '/register',
+                data=dict(
+                    aub_id=1234, email="test@gmail.com",
+                    first_name="Test", last_name="Testing", major="",
+                    password="test", confirm_password="test"
                 )
             )
             self.assertIn(b'This field is required.', response.data)
@@ -173,8 +216,9 @@ class RegisterationTests(BaseTestCase):
             response = self.client.post(
                 '/register',
                 data=dict(
-                    username="test", email="test@gmail.com", password="",
-                    confirm_password="test"
+                    aub_id=1234, email="test@gmail.com",
+                    first_name="Test", last_name="Test", major="cmps",
+                    password="", confirm_password="test"
                 )
             )
             self.assertIn(b'This field is required.', response.data)
@@ -186,21 +230,23 @@ class RegisterationTests(BaseTestCase):
             response = self.client.post(
                 '/register',
                 data=dict(
-                    username="test", email="test@gmail.com", password="test",
-                    confirm_password=""
+                    aub_id=1234, email="test@gmail.com",
+                    first_name="Test", last_name="Test", major="cmps",
+                    password="test", confirm_password=""
                 )
             )
             self.assertIn(b'This field is required.', response.data)
             self.assertFalse(current_user.is_active)
             self.assertFalse(current_user.is_authenticated)
 
-    def test_invalid_register_username(self):
+    def test_invalid_register_aub_id(self):
         with self.client:
             response = self.client.post(
                 '/register',
                 data=dict(
-                    username="t", email="test@gmail.com", password="test",
-                    confirm_password="test"
+                    aub_id=1, email="test@gmail.com",
+                    first_name="Test", last_name="Test", major="cmps",
+                    password="test", confirm_password="test"
                 )
             )
             self.assertIn(
@@ -215,24 +261,26 @@ class RegisterationTests(BaseTestCase):
             response = self.client.post(
                 '/register',
                 data=dict(
-                    username="test", email="test@gmail.com", password="test",
-                    confirm_password="test2"
+                    aub_id=1234, first_name="Test", last_name="Test",
+                    email="test@gmail.com", major="cmps",
+                    password="test1", confirm_password="test2"
                 )
             )
             self.assertIn(b'Field must be equal to password.', response.data)
             self.assertFalse(current_user.is_active)
             self.assertFalse(current_user.is_authenticated)
 
-    def test_invalid_register_username_old(self):
+    def test_invalid_register_aub_id_old(self):
         with self.client:
             response = self.client.post(
                 '/register',
                 data=dict(
-                    username="admin", email="test@gmail.com", password="test",
-                    confirm_password="test"
+                    aub_id=1234, first_name="Test", last_name="Test",
+                    email="test@gmail.com", major="cmps",
+                    password="", confirm_password="test"
                 )
             )
-            self.assertIn(b'Username already exists!', response.data)
+            self.assertIn(b'AUB ID already exists!', response.data)
             self.assertFalse(current_user.is_active)
             self.assertFalse(current_user.is_authenticated)
 
@@ -241,8 +289,9 @@ class RegisterationTests(BaseTestCase):
             response = self.client.post(
                 '/register',
                 data=dict(
-                    username="test", email="ad@min.com", password="test",
-                    confirm_password="test"
+                    aub_id=1234, first_name="Test", last_name="Test",
+                    email="ad@min.com", major="cmps",
+                    password="test", confirm_password="test"
                 )
             )
             self.assertIn(b'Account with email already exists!', response.data)
@@ -252,11 +301,15 @@ class RegisterationTests(BaseTestCase):
     def test_correct_login(self):
         with self.client:
             email = "test@gmail.com"
+            first_name = "Test fn"
+            last_name = "Test ln"
+            major = "cmps"
             password = "test"
             response = self.client.post(
                 '/register',
                 data=dict(
-                    username="test", email=email, password=password,
+                    aub_id=1234, email=email, first_name=first_name,
+                    last_name=last_name, major=major, password=password,
                     confirm_password=password
                 ),
                 follow_redirects=True
@@ -281,7 +334,7 @@ class RegisterationTests(BaseTestCase):
 
 class AccountTests(BaseTestCase):
 
-    def test_account_update_username(self):
+    def test_account_update_aub_id(self):
         with self.client:
             response = self.client.post(
                 '/login',
@@ -294,7 +347,7 @@ class AccountTests(BaseTestCase):
 
             response = self.client.post(
                 '/account',
-                data=dict(username="admin2")
+                data=dict(aub_id=1234)
             )
             self.assertStatus(response, 302)
             self.assertRedirects(response, '/account')
@@ -302,7 +355,7 @@ class AccountTests(BaseTestCase):
                                       " updated!", 'success')
 
             user = user_dao.get_by_id(1)
-            self.assertEqual(user.username, "admin2")
+            self.assertEqual(user.aub_id, 1234)
 
     def test_account_update_email(self):
         with self.client:
@@ -317,7 +370,7 @@ class AccountTests(BaseTestCase):
 
             response = self.client.post(
                 '/account',
-                data=dict(username="admin", email='ad2@min.com')
+                data=dict(aub_id=1234, email='ad2@min.com')
             )
             self.assertStatus(response, 302)
             self.assertRedirects(response, '/account')
@@ -350,7 +403,7 @@ class AccountTests(BaseTestCase):
 
             response = self.client.post(
                 '/account',
-                data=dict(username="admin", email='ad2@min.com', image=image),
+                data=dict(aub_id=1234, email='ad2@min.com', image=image),
                 content_type='multipart/form-data'
             )
             self.assertStatus(response, 302)
@@ -380,7 +433,7 @@ class AccountTests(BaseTestCase):
 
             response = self.client.post(
                 '/account',
-                data=dict(username="admin", email='ad2@min.com', image=None),
+                data=dict(aub_id=1234, email='ad2@min.com', image=None),
                 content_type='multipart/form-data'
             )
             self.assertStatus(response, 302)

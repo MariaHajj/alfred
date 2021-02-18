@@ -8,7 +8,7 @@
                 <img class="rounded-circle account-img" src ="{{ image_file }}">
                 <div class="media-body">
                     <h2 class="account-heading">
-                        {{ current_user.username }}
+                        {{ current_user.aub_id }}
                     </h2>
                     <p class="text-secondary">
                         {{ current_user.email}}
@@ -22,25 +22,25 @@
                             Account info.
                         </legend>
                         <div class="form-group">
-                            {{ form.username.label(class="form-control-label") }}
+                            {{ form.aub_id.label(class="form-control-label") }}
 
-                            {% if form.username.errors %}
-                                {{ form.username.label(class="form-control form-control-lg is-invalid") }}
+                            {% if form.aub_id.errors %}
+                                {{ form.aub_id(class="form-control form-control-lg is-invalid") }}
                                 <div class="invalid-feedback">
-                                    {% for error in form.username.errors %}
+                                    {% for error in form.aub_id.errors %}
                                         <span>
                                             {{ error }}
                                         </span>
                                     {% endfor %}
                                 </div>
                             {% else %}
-                                {{ form.username(class="form-control form-control-lg") }}
+                                {{ form.aub_id(class="form-control form-control-lg") }}
                             {% endif %}
                         </div>
                         <div class="form-group">
                             {{ form.email.label(class="form-control-label") }}
                             {% if form.email.errors %}
-                                {{ form.email.label(class="form-control form-control-lg is-invalid") }}
+                                {{ form.email(class="form-control form-control-lg is-invalid") }}
                                 <div class="invalid-feedback">
                                     {% for error in form.email.errors %}
                                         <span>
@@ -58,7 +58,7 @@
 
                             {% if form.image.errors %}
                             {% for error in form.image.errors %}
-                                <span class="text-danger"> {{ error }} </span></br>
+                                <span class="text-danger"> {{ error }} </span><br>
                             {% endfor %}
                             {% endif %}
                         </div>

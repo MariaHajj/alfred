@@ -1,4 +1,4 @@
-from boilerplate.dao.users import user_dao, User, db
+from alfred.dao.users import user_dao, User, db
 
 
 class UserService():
@@ -16,35 +16,42 @@ class UserService():
             UserService()
         return UserService.__instance__
 
-    def create_user(self, username, email, password):
-        if (username is None) or (email is None) \
-           or (password is None):
+    def create_user(self, aub_id, email, first_name,
+                    last_name, password):
+        if (aub_id is None) or (email is None) or (first_name is None) \
+           or (last_name is None) or (password is None):
             return None
 
-        user = user_dao.get_by_username(username=username)
+        user = user_dao.get_by_email(email=email)
         if user is None:
-            user = User(username=username,
+            user = User(aub_id=aub_id,
                         email=email.casefold(),
+                        first_name=first_name,
+                        last_name=last_name,
+                        # major=major,
                         password=password)
             user_dao.add(user)
             return user
         return None
 
-    def update_user(self, user_id, username=None, email=None,
-                    image_file=None):
+    def update_user(self, user_id, aub_id=None, first_name=None,
+                    last_name=None, image_file=None):
         if (user_id is None):
             return False
 
-        if (username is None) and (email is None) and (image_file is None):
+        if (aub_id is None) and (first_name is None) and (last_name is None) \
+           and (image_file is None):
             return False
 
         try:
             user = user_dao.get_by_id(user_id=user_id)
 
-            if username:
-                user.username = username
-            if email:
-                user.email = email
+            if aub_id:
+                user.aub_id = aub_id
+            if first_name:
+                user.first_name = first_name
+            if last_name:
+                user.last_name = last_name
             if image_file:
                 user.image_file = image_file
 

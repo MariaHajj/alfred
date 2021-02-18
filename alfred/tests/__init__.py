@@ -1,8 +1,8 @@
 from flask_testing import TestCase
 
-from boilerplate import create_app, db
-from boilerplate.config import TestConfig
-from boilerplate.models import User
+from alfred import create_app, db
+from alfred.config import TestConfig
+from alfred.models import User
 
 
 class BaseTestCase(TestCase):

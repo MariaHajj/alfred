@@ -1,14 +1,14 @@
 from flask import Blueprint
 from flask import render_template, flash, redirect, url_for, request
 
-from boilerplate.core.users.forms import (RegistrationForm, LoginForm,
-                                          UpdateAccountForm)
+from alfred.core.users.forms import (RegistrationForm, LoginForm,
+                                     UpdateAccountForm)
 from flask_login import login_user, current_user, logout_user, login_required
 
-from boilerplate.utils import save_image
+from alfred.utils import save_image
 
-from boilerplate.services.users import user_service
-from boilerplate.dao.users import user_dao
+from alfred.services.users import user_service
+from alfred.dao.users import user_dao
 
 
 users = Blueprint('users', __name__)
@@ -22,11 +22,18 @@ def register():
 
     form = RegistrationForm()
     if form.validate_on_submit():
-        username = form.username.data
+        aub_id = form.aub_id.data
         email = form.email.data
+        first_name = form.first_name.data
+        last_name = form.last_name.data
+        # major = form.major.data
         password = form.password.data
 
-        user_service.create_user(username, email, password)
+        user_service.create_user(aub_id=aub_id, email=email.casefold(),
+                                 first_name=first_name,
+                                 last_name=last_name,
+                                 #  major=major,
+                                 password=password)
 
         flash('Account created! You can now log in.', 'success')
         return redirect(url_for('users.login'))
@@ -76,19 +83,25 @@ def account():
         else:
             image_file = None
 
-        new_username = form.username.data
-        new_email = form.email.data
+        new_aub_id = form.aub_id.data
+        new_first_name = form.first_name.data
+        new_last_name = form.last_name.data
 
         user_id = current_user.id
-        user_service.update_user(user_id=user_id, username=new_username,
-                                 email=new_email, image_file=image_file)
+        user_service.update_user(user_id=user_id, aub_id=new_aub_id,
+                                 first_name=new_first_name,
+                                 last_name=new_last_name,
+                                 image_file=image_file)
 
         flash("Your account has been successfully updated!", 'success')
         return redirect(url_for('users.account'))
 
     elif request.method == 'GET':
-        form.username.data = current_user.username
+        form.aub_id.data = current_user.aub_id
         form.email.data = current_user.email
+        form.first_name.data = current_user.first_name
+        form.last_name.data = current_user.last_name
+        form.major.data = current_user.major
 
     image_file = url_for('static',
                          filename=f"profile_pictures/"

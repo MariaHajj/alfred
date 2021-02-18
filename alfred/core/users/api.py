@@ -1,6 +1,6 @@
-from boilerplate.schemas.users import UserSchema
-from boilerplate.dao.users import user_dao
-from boilerplate.services.users import user_service
+from alfred.schemas.users import UserSchema
+from alfred.dao.users import user_dao
+from alfred.services.users import user_service
 
 from flask_restx import Namespace, Resource, reqparse
 
@@ -29,8 +29,11 @@ class Users(Resource):
 
 
 parser = reqparse.RequestParser()
-parser.add_argument('username', required=True)
+parser.add_argument('aub_id', required=True)
 parser.add_argument('email', required=True)
+parser.add_argument('first_name', required=True)
+parser.add_argument('last_name', required=True)
+parser.add_argument('major', required=True)
 parser.add_argument('password', required=True)
 
 
@@ -47,24 +50,34 @@ class AddUser(Resource):
 
         Parameters
         ----------
-        - username:
-            Usernames have to be unique.
+        - aub_id:
+            AUB IDs have to be unique.
+        - first_name, last_name, and major
         - email:
             Emails have to be unique.
         - password:
             Passwords are automatically hashed when they are stored.
         """
         args = parser.parse_args()
-        username = args['username']
+        aub_id = args['aub_id']
         email = args['email']
+        first_name = args['first_name']
+        last_name = args['last_name']
+        major = args['major']
         password = args['password']
 
-        if username and \
+        if aub_id and \
            email and \
+           first_name and \
+           last_name and \
+           major and \
            password:
             try:
-                user_service.create_user(username=username,
+                user_service.create_user(aub_id=aub_id,
                                          email=email,
+                                         first_name=first_name,
+                                         last_name=last_name,
+                                         major=major,
                                          password=password)
                 return "The user was created successfully.", 201
             except Exception as e:
@@ -92,8 +105,10 @@ class getUser(Resource):
             dict with the structure:
             {
                 "user": {
-                    "username": username,
+                    "aub_id": aub_id,
                     "email": email,
+                    "first_name": first_name,
+                    "last_name": last_name,
                     "password": hashed password,
                     "image_path": name of profile picture
                 }
