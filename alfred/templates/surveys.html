@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="border-bottom mb-4">
+                     <legend >{{survey.title}}
+                      <small class="text-muted">,{{survey.start_date}}</small>
+                     </legend>
+                     <small class="text-muted">closes on {{survey.end_date}}</small>
+                </div>
+                <p>{{survey.comment}}</p>
+
+                <div class="form-check">
+                    {{ form.regsister(class="form-check-input") }}
+                    {{ form.regsister.label(class="form-check-label") }}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}
