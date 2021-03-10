@@ -1,5 +1,6 @@
 from alfred.schemas.users import UserSchema
 from alfred.dao.users import user_dao
+from alfred.dao.majors import major_dao
 from alfred.services.users import user_service
 
 from flask_restx import Namespace, Resource, reqparse
@@ -77,7 +78,7 @@ class AddUser(Resource):
                                          email=email.casefold(),
                                          first_name=first_name,
                                          last_name=last_name,
-                                         major=major,
+                                         major=major_dao.get_by_name(major),
                                          password=password)
                 return "The user was created successfully.", 201
             except Exception as e:
