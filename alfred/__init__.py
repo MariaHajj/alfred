@@ -52,8 +52,8 @@ admin.add_view(CourseAvailabilityView(CourseAvailability, db.session))
 admin.add_view(CourseGradeView(CourseGrade, db.session))
 admin.add_view(CapacitySurveyView(CapacitySurvey, db.session))
 admin.add_view(PetitionTypeView(PetitionType, db.session))
-admin.add_view(PetitionView(Petition, db.session))
 admin.add_view(PetitionStatusView(PetitionStatus, db.session))
+admin.add_view(PetitionView(Petition, db.session))
 
 
 # Image dimensions

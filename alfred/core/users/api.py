@@ -74,7 +74,7 @@ class AddUser(Resource):
            password:
             try:
                 user_service.create_user(aub_id=aub_id,
-                                         email=email,
+                                         email=email.casefold(),
                                          first_name=first_name,
                                          last_name=last_name,
                                          major=major,
@@ -109,6 +109,7 @@ class getUser(Resource):
                     "email": email,
                     "first_name": first_name,
                     "last_name": last_name,
+                    "major": major,
                     "password": hashed password,
                     "image_path": name of profile picture
                 }

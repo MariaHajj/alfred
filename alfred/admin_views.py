@@ -78,9 +78,10 @@ class PetitionView(ModelView):
     pass
 
 
+class PetitionStatusView(ModelView):
+    pass
+
+
 class PetitionTypeView(ModelView):
     pass
 
-
-class PetitionStatusView(ModelView):
-    pass

@@ -54,7 +54,8 @@ class User(db.Model, UserMixin):
     course_grade = db.relationship('CourseGrade', back_populates='user')
 
     def __repr__(self):
-        return (f"User('{self.first_name} {self.last_name}', '{self.aub_id}', {self.major})")
+        return (f"User('{self.first_name} {self.last_name}',\
+                       '{self.aub_id}', {self.major})")
 
     @hybrid_property
     def password(self):
@@ -185,7 +186,7 @@ class Major(db.Model):
         self.code = code
 
     def __repr__(self):
-        return(f"Major {self.name} ({self.code})")
+        return(f"Major: {self.name} ({self.code})")
 
 
 class Course(db.Model):
@@ -256,8 +257,7 @@ class Availability(db.Model):
         self.frequency = frequency
 
     def __repr__(self):
-        return(f"Term: {self.term} | "
-               f"Frequency: {self.frequency}")
+        return(f"{self.term} | {self.frequency}")
 
 
 class Frequency(db.Model):
