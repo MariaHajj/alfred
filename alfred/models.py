@@ -2,6 +2,7 @@ from alfred import db, login_manager, bcrypt
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask_validator import ValidateEmail
+from sqlalchemy.orm import validates
 from sqlalchemy import CheckConstraint
 import datetime
 
@@ -119,14 +120,13 @@ class Announcement(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='announcement')
 
-    def __init__(self, title, description, user):
+    def __init__(self, title, description):
         self.title = title
         self.description = description
-        self.user = user
 
     def __repr__(self):
         return(f"{self.title}"
-               f" uploaded on {self.upload_date} by {self.user}.\n"
+               f" uploaded on {self.upload_date}\n"
                f"{self.description}")
 
 
@@ -195,6 +195,7 @@ class Course(db.Model):
 
     name = db.Column(db.String(45), unique=True, nullable=False)
     description = db.Column(db.String(500), unique=False, nullable=False)
+    code = db.Column(db.String(5), unique=False, nullable=False)
     number = db.Column(db.Integer, unique=True, nullable=False)
 
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
@@ -210,13 +211,19 @@ class Course(db.Model):
     course_availability = db.relationship('CourseAvailability',
                                           back_populates='course')
 
-    def __init__(self, name, number, department):
+    def __init__(self, name, description, code, number):
         self.name = name
+        self.description = description
+        self.code = code
         self.number = number
-        self.department = department
 
     def __repr__(self):
-        return(f"{self.department.code} {self.number}: {self.name}")
+        return(f"{self.code} {self.number}: {self.name}")
+
+    @validates('course')
+    def validate_course_code(self, code):
+        if len(code) != 4:
+            raise AssertionError('Code must be 4 characters')
 
 
 class CourseAvailability(db.Model):
@@ -317,7 +324,7 @@ class CourseGrade(db.Model):
         self.course = course
 
     def __repr__(self):
-        return(f"{self.user}: {self.course} grade = {self.value}/100")
+        return(f"{self.user}: {self.course} grade = {self.value}")
 
 
 class CapacitySurvey(db.Model):
@@ -329,16 +336,18 @@ class CapacitySurvey(db.Model):
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     comment = db.Column(db.String(500), unique=False, nullable=False)
-    number_of_requests = db.Column(db.Integer)
+    number_of_requests = db.Column(db.Integer, nullable=False)
 
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     course = db.relationship('Course', back_populates='capacity_survey')
 
-    def __init__(self, title, start_date, end_date, comment):
+    def __init__(self, title, start_date, end_date,
+                 comment, number_of_requests):
         self.title = title
         self.start_date = start_date
         self.end_date = end_date
         self.comment = comment
+        self.number_of_requests = number_of_requests
 
     def __repr__(self):
         return(f"{self.title} | "
@@ -369,15 +378,17 @@ class Petition(db.Model):
     status_id = db.Column(db.Integer, db.ForeignKey('petition_status.id'))
     status = db.relationship('PetitionStatus', back_populates='petition')
 
-    def __init__(self, user, request_comment, date_decided, decision_comment):
-        self.user = user
+    def __init__(self, transcript, request_comment, date_submitted,
+                 advisor_comment, decision_comment, date_decided):
+        self.transcript = transcript
         self.request_comment = request_comment
-        self.date_decided = date_decided
+        self.date_submitted = date_submitted
+        self.advisor_comment = advisor_comment
         self.decision_comment = decision_comment
+        self.date_decided = date_decided
 
     def __repr__(self):
-        return(f"Petition for: {self.user}"
-               f"Request comment: {self.request_comment}"
+        return(f"Request comment: {self.request_comment}"
                f"Date of decision: {self.date_decided}"
                f"Decision comment: {self.decision_comment}")
 

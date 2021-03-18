@@ -54,7 +54,7 @@ class MajorService():
             return False
 
         try:
-            major = major_dao.get_by_id(majorr_id=int(major_id))
+            major = major_dao.get_by_id(major_id=int(major_id))
             if major:
                 major_dao.delete_major_by_id(major_id)
                 return True
