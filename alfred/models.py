@@ -52,6 +52,7 @@ class User(db.Model, UserMixin):
     petition = db.relationship('Petition', back_populates='user')
 
     course_grade = db.relationship('CourseGrade', back_populates='user')
+    surveys = db.relationship('StudentsRegisteredInSurveys', backref='students')
 
     def __repr__(self):
         return (f"User('{self.first_name} {self.last_name}', '{self.aub_id}', {self.major})")
@@ -342,19 +343,18 @@ class CapacitySurvey(db.Model):
 
     def __repr__(self):
         return(f"{self.title} | "
-               f"Open from {self.start_date} till {self.end_date}) | "
+               f"Open from ({self.start_date} till {self.end_date}) | "
                f"{self.comment}")
 
 class StudentsRegisteredInSurveys(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     survey_id =db.Column(db.Integer, db.ForeignKey('capacity_survey.id'))
-    #surveys = db.relationship('CapacitySurvey', back_populates='students')
-   # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    student_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
-    def __init__(self,survey_id):
+    def __init__(self,survey_id, student_id):
         self.survey_id = survey_id
-       # self.user_id = user_id
+        self.student_id = student_id
 
 
 class Petition(db.Model):

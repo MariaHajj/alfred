@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4f51eb83-53e7-4a17-b826-495e7725e6b4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alfred/core/surveys/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/alfred/core/surveys/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alfred/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/alfred/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alfred/templates/surveys.html" beforeDir="false" afterPath="$PROJECT_DIR$/alfred/templates/surveys.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,25 +17,27 @@
     <session id="-390525128">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.31" value="1" />
+          <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="1" />
-          <entry key="html" value="29" />
-          <entry key="py" value="114" />
+          <entry key="html" value="34" />
+          <entry key="py" value="120" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="1" />
-          <entry key="HTML" value="29" />
-          <entry key="Python" value="114" />
+          <entry key="HTML" value="34" />
+          <entry key="Python" value="120" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -40,27 +45,27 @@
           <entry key="Python Console" value="1" />
           <entry key="css" value="26" />
           <entry key="dummy" value="6" />
-          <entry key="html" value="656" />
-          <entry key="py" value="1808" />
+          <entry key="html" value="719" />
+          <entry key="py" value="2086" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="26" />
-          <entry key="HTML" value="656" />
+          <entry key="HTML" value="719" />
           <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Python" value="1809" />
+          <entry key="Python" value="2087" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/alfred/admin_views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="88" column="60" lean-forward="true" selection-start-line="88" selection-start-column="60" selection-end-line="88" selection-end-column="70" />
+              <caret line="88" column="60" selection-start-line="88" selection-start-column="60" selection-end-line="88" selection-end-column="70" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
                 <marker date="1615286499387" expanded="true" signature="939:1332" ph="..." />
@@ -75,11 +80,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/alfred/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="334" column="68" selection-start-line="334" selection-start-column="68" selection-end-line="334" selection-end-column="68" />
+            <state relative-caret-position="234">
+              <caret line="351" column="4" selection-start-line="351" selection-start-column="4" selection-end-line="351" selection-end-column="14" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
-                <marker date="1615286290518" expanded="true" signature="12072:12081" ph="..." />
+                <marker date="1615884570072" expanded="true" signature="12092:12101" ph="..." />
               </folding>
             </state>
           </provider>
@@ -88,11 +93,59 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/alfred/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
+            <state relative-caret-position="867">
               <caret line="51" column="45" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alfred/templates/layout.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-93">
+              <caret line="36" column="18" lean-forward="true" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alfred/core/surveys/forms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="35" lean-forward="true" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alfred/core/surveys/routes.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="50" selection-start-line="1" selection-start-column="50" selection-end-line="1" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/alfred/templates/home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alfred/templates/surveys.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="25" column="63" lean-forward="true" selection-start-line="25" selection-start-column="63" selection-end-line="25" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -133,6 +186,8 @@
       <find>survey_id</find>
       <find>defaul</find>
       <find>Announcement</find>
+      <find>students_registered_in_surveys.user_id</find>
+      <find>if</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -148,15 +203,15 @@
         <option value="$PROJECT_DIR$/alfred/config.py" />
         <option value="$PROJECT_DIR$/alfred/core/main/__init__.py" />
         <option value="$PROJECT_DIR$/alfred/core/__init__.py" />
-        <option value="$PROJECT_DIR$/alfred/templates/layout.html" />
         <option value="$PROJECT_DIR$/alfred/core/main/routes.py" />
+        <option value="$PROJECT_DIR$/alfred/services/users.py" />
+        <option value="$PROJECT_DIR$/alfred/__init__.py" />
+        <option value="$PROJECT_DIR$/alfred/admin_views.py" />
+        <option value="$PROJECT_DIR$/alfred/models.py" />
+        <option value="$PROJECT_DIR$/alfred/templates/layout.html" />
         <option value="$PROJECT_DIR$/alfred/core/surveys/forms.py" />
         <option value="$PROJECT_DIR$/alfred/templates/surveys.html" />
-        <option value="$PROJECT_DIR$/alfred/services/users.py" />
         <option value="$PROJECT_DIR$/alfred/core/surveys/routes.py" />
-        <option value="$PROJECT_DIR$/alfred/__init__.py" />
-        <option value="$PROJECT_DIR$/alfred/models.py" />
-        <option value="$PROJECT_DIR$/alfred/admin_views.py" />
       </list>
     </option>
   </component>
@@ -189,6 +244,13 @@
               <item name="alfred-maria" type="462c0819:PsiDirectoryNode" />
               <item name="alfred" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="alfred-maria" type="b2602c69:ProjectViewProjectNode" />
+              <item name="alfred-maria" type="462c0819:PsiDirectoryNode" />
+              <item name="alfred" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="alfred-maria" type="b2602c69:ProjectViewProjectNode" />
@@ -258,10 +320,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24403815" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24403815" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -330,9 +391,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="2090" column="21" selection-start-line="2090" selection-start-column="16" selection-end-line="2090" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -351,9 +409,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -363,9 +418,6 @@
     <entry file="file://$PROJECT_DIR$/alfred/core/users/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/alfred/core/surveys/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/alfred/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="393">
@@ -373,62 +425,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alfred/core/main/routes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/alfred/templates/register.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/alfred/templates/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-335">
-          <caret line="65" column="88" selection-start-line="65" selection-start-column="88" selection-end-line="65" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alfred/core/surveys/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <marker date="1615136339568" expanded="true" signature="151:290" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alfred/templates/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/alfred/core/users/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alfred/core/users/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="37" column="19" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/alfred/utils.py">
       <provider selected="true" editor-type-id="text-editor" />
@@ -446,51 +447,13 @@
     <entry file="file://$PROJECT_DIR$/alfred/services/users.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/alfred/templates/surveys.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alfred/core/surveys/routes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="34" selection-start-column="34" selection-end-column="34" />
-          <folding>
-            <marker date="1615220721853" expanded="true" signature="396:397" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reset.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alfred/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="51" column="45" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alfred/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="334" column="68" selection-start-line="334" selection-start-column="68" selection-end-line="334" selection-end-column="68" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-            <marker date="1615286290518" expanded="true" signature="12072:12081" ph="..." />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/alfred/admin_views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="88" column="60" lean-forward="true" selection-start-line="88" selection-start-column="60" selection-end-line="88" selection-end-column="70" />
+          <caret line="88" column="60" selection-start-line="88" selection-start-column="60" selection-end-line="88" selection-end-column="70" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
             <marker date="1615286499387" expanded="true" signature="939:1332" ph="..." />
@@ -498,6 +461,82 @@
             <marker date="1615286499387" expanded="true" signature="1756:1876" ph="..." />
             <marker date="1615286499387" expanded="true" signature="1925:1937" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alfred/core/users/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="37" column="19" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alfred/core/surveys/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alfred/core/main/routes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alfred/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="351" column="4" selection-start-line="351" selection-start-column="4" selection-end-line="351" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+            <marker date="1615884570072" expanded="true" signature="12092:12101" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alfred/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="51" column="45" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alfred/core/surveys/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="35" lean-forward="true" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alfred/templates/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-93">
+          <caret line="36" column="18" lean-forward="true" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alfred/templates/surveys.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="63" lean-forward="true" selection-start-line="25" selection-start-column="63" selection-end-line="25" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alfred/core/surveys/routes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="50" selection-start-line="1" selection-start-column="50" selection-end-line="1" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alfred/templates/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="11" />
         </state>
       </provider>
     </entry>

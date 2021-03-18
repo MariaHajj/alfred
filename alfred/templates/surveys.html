@@ -13,12 +13,20 @@
                 <p>{{survey.comment}}</p>
 
                 <div class="form-check">
-                    {{ form.regsister(class="form-check-input") }}
+                     {% if student_submitted %}
+                         {{ form.regsister(class="form-check-input", disabled="disabled") }}
+                     {% else %}
+                        {{ form.regsister(class="form-check-input") }}
+                     {% endif %}
                     {{ form.regsister.label(class="form-check-label") }}
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+                {% if student_submitted %}
+                    {{ form.submit(class="btn btn-outline-info" , disabled="disabled") }}
+                {% else %}
+                    {{ form.submit(class="btn btn-outline-info") }}
+                {% endif %}
             </div>
         </form>
     </div>
