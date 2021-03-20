@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+<h1>Request History</h1>
+
+<div class="content-section">
+<table class="table table-striped">
+  <thead style="background-color:#778899; color:white">
+    <tr >
+      <th scope="col" >View</th>
+      <th scope="col">Req. Reference NO</th>
+      <th scope="col">Request Type</th>
+      <th scope="col">Request Decision</th>
+
+        <th scope="col">Submission Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th ><a href="{{url_for('petitions.petition_request_details')}}" style="text-decoration: none"><i class="flaticon-bullseye" style="color:#212529"></i> </a></th>
+      <td>1</td>
+      <td>Requesting Capacity</td>
+      <td>Pending</td>
+        <td>15-03-2021</td>
+    </tr>
+    <tr>
+      <th ><a href="{{url_for('petitions.petition_request_details')}}" style="text-decoration: none"><i class="flaticon-bullseye" style="color:#212529"></i> </a></th>
+      <td>2</td>
+      <td>Requesting Capacity</td>
+      <td>Rejected by Chairperson</td>
+        <td>15-03-2021</td>
+    </tr>
+
+  </tbody>
+</table>
+ </div>
+
+
+
+
+
+{% endblock content %}

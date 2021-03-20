@@ -21,7 +21,7 @@ mail = Mail()
 from alfred.models import Role, Major, Department, Faculty, User
 from alfred.models import CourseAvailability, Announcement, Course
 from alfred.models import CourseGrade, Term, Frequency, Availability
-from alfred.models import CapacitySurvey, Petition, PetitionType,StudentsRegisteredInSurveys
+from alfred.models import CapacitySurvey, StudentsRegisteredInSurveys, Petition, PetitionType
 from alfred.models import PetitionStatus
 
 from flask_admin import Admin
@@ -71,7 +71,7 @@ def create_app(config_class=BaseConfig):
     from alfred.core.users.views import users
     from alfred.core.main.routes import main
     from alfred.core.surveys.routes import surveys
-
+    from alfred.core.petitions.routes import petitions
 
 
     from alfred.core.errors.handlers import errors
@@ -83,9 +83,11 @@ def create_app(config_class=BaseConfig):
     app.register_blueprint(errors)
     app.register_blueprint(users)
     app.register_blueprint(surveys)
+    app.register_blueprint(petitions)
 
     @app.context_processor
     def inject_user():
         CapacitySurveys = CapacitySurvey.query.order_by(desc(CapacitySurvey.start_date)).all()
-        return dict(CapacitySurveys=CapacitySurveys)
+        PetitionTypes = PetitionType.query.all()
+        return dict(CapacitySurveys=CapacitySurveys, PetitionTypes=PetitionTypes)
     return app

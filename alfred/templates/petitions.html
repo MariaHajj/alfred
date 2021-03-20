@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+
+<main role="main" class="container">
+    <h1>{{Petition_type.name}}</h1>
+      <div class="row">
+        <div class="col-md-8">
+         <div class="content-section">
+         add form here
+         </div>
+        </div>
+        <div class="col-md-4">
+          <div class="content-section">
+            {{Petition_type.description}}
+          </div>
+        </div>
+      </div>
+    </main>
+{% endblock content %}
