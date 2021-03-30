@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="border-bottom mb-4">
+                     <legend >{{survey.title}}
+                      <small class="text-muted">,{{survey.start_date}}</small>
+                     </legend>
+                     <small class="text-muted">closes on {{survey.end_date}}</small>
+                </div>
+                <p>{{survey.comment}}</p>
+
+                <div class="form-check">
+                     {% if student_submitted %}
+                         {{ form.register(class="form-check-input", disabled="disabled") }}
+                     {% else %}
+                        {{ form.register(class="form-check-input") }}
+                     {% endif %}
+                    {{ form.register.label(class="form-check-label") }}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {% if student_submitted %}
+                    {{ form.submit(class="btn btn-outline-info" , disabled="disabled") }}
+                {% else %}
+                    {{ form.submit(class="btn btn-outline-info") }}
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

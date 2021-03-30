@@ -1,4 +1,6 @@
 from alfred.dao.petitions import petition_dao, Petition, db
+from datetime import date
+from flask_login import current_user
 
 
 class PetitionService():
@@ -17,33 +19,44 @@ class PetitionService():
         return PetitionService.__instance__
 
     def create_petition(self, transcript, request_comment, date_submitted,
-                        advisor_comment, decision_comment, date_decided):
+                        petition_type, course, petition_status,
+                        advisor_comment, decision_comment, date_decided, user):
         if (transcript is None) or (request_comment is None) or\
-           (date_submitted is None) or (advisor_comment is None) or\
-           (decision_comment is None) or (date_decided is None):
+           (date_submitted is None) or (petition_type is None) or\
+           (course is None):
             return None
 
         petition = Petition(transcript=transcript,
                             request_comment=request_comment,
                             date_submitted=date_submitted,
+                            petition_type=petition_type,
+                            course=course,
+                            petition_status=petition_status,
                             advisor_comment=advisor_comment,
                             decision_comment=decision_comment,
-                            date_decided=date_decided)
+                            date_decided=date_decided,
+                            user=user)
         petition_dao.add(petition)
         return petition
 
     def update_petition(self, petition_id, transcript=None,
                         request_comment=None,
                         date_submitted=None,
+                        petition_type=None,
+                        course=None,
+                        petition_status=None,
                         advisor_comment=None,
                         decision_comment=None,
-                        date_decided=None):
+                        date_decided=None,
+                        user=current_user):
         if (petition_id is None):
             return False
 
         if (transcript is None) and (request_comment is None) and\
-           (date_submitted is None) and (advisor_comment is None) and\
-           (decision_comment is None) and (date_decided is None):
+           (date_submitted is None) and (petition_type is None) and\
+           (course is None) and (petition_status is None) and\
+           (advisor_comment is None) and (decision_comment is None)\
+           and (date_decided is None) and (user is current_user):
             return False
 
         try:
@@ -55,12 +68,20 @@ class PetitionService():
                 petition.request_comment = request_comment
             if date_submitted:
                 petition.date_submitted = date_submitted
+            if petition_type:
+                petition.petition_type = petition_type
+            if course:
+                petition.course = course
+            if petition_status:
+                petition.petition_status = petition_status
             if advisor_comment:
                 petition.advisor_comment = advisor_comment
             if decision_comment:
                 petition.decision_comment = decision_comment
             if date_decided:
                 petition.date_decided = date_decided
+            if user:
+                petition.user = current_user
 
             db.session.commit()
 

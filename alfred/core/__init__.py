@@ -12,7 +12,7 @@ from alfred.core.capacity_surveys.api import api as capacity_surveys
 from alfred.core.petition_statuses.api import api as petition_statuses
 from alfred.core.petition_types.api import api as petition_types
 from alfred.core.petitions.api import api as petitions
-from alfred.core.announcements.api import api as announcement
+from alfred.core.home.api import api as announcement
 
 
 blueprint = Blueprint('api', __name__)

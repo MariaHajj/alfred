@@ -2,6 +2,12 @@ body {
   background: #fafafa;
   color: #333333;
   margin-top: 5rem;
+
+
+}
+thead, .tdColor{
+background-color:#778899;
+ color:white;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -115,7 +121,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 1px;
 }
 
-figcaption {  
+figcaption {
   color: black;
   font-size: xx-small;
   padding: 2px;

@@ -2,12 +2,11 @@ from alfred.schemas.capacity_surveys import CapacitySurveySchema
 from alfred.dao.capacity_surveys import capacity_survey_dao
 from alfred.services.capacity_surveys import capacity_survey_service
 
-from flask_restx import Namespace, Resource, reqparse
-from flask_restful import inputs
+from flask_restx import Namespace, Resource, reqparse, inputs
 
 
-api = Namespace('capacity_surveys',
-                description='Capacity Survey-related operations')
+api = Namespace('surveys',
+                description='Survey-related operations')
 capacity_survey_schema = CapacitySurveySchema()
 
 
@@ -36,7 +35,6 @@ parser.add_argument('start_date: YYYY-MM-DD', type=inputs.date,
                     required=True)
 parser.add_argument('end_date: YYYY-MM-DD', type=inputs.date,
                     required=True)
-parser.add_argument('number_of_requests', required=True)
 parser.add_argument('comment', required=True)
 
 
@@ -59,17 +57,14 @@ class AddCapacitySurvey(Resource):
         title = args['title']
         start_date = args['start_date: YYYY-MM-DD']
         end_date = args['end_date: YYYY-MM-DD']
-        number_of_requests = args['number_of_requests']
         comment = args['comment']
 
-        if title and start_date and end_date\
-           and number_of_requests and comment:
+        if title and start_date and end_date and comment:
             try:
                 capacity_survey_service\
                     .create_capacity_survey(title=title,
                                             start_date=start_date,
                                             end_date=end_date,
-                                            number_of_requests=int(number_of_requests),  # noqa: E501
                                             comment=comment)
                 return "The capacity survey was created successfully.", 201
             except Exception as e:

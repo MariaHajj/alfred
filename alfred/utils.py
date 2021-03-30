@@ -1,6 +1,6 @@
 import os
 import secrets
-from flask import current_app
+from flask import current_app, request
 from PIL import Image, ImageFile
 
 
@@ -63,3 +63,25 @@ def compress_image(image, output_size=(125, 125)):
 
     i.thumbnail(output_size)
     return i
+
+
+def save_pdf(form_pdf):
+    """Save user-uploaded pdf transcript file under /static/transcripts.
+    Parameters
+    ----------
+    form_transcript : [file]
+    Returns
+    -------
+    [str]
+        A random hex is generated as the new file name to prevent
+        any errors that would arise on the filesystem when filename uniqueness
+        is violated.
+    """
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_pdf.filename)
+    pdf_fn = random_hex + f_ext
+    pdf_path = os.path.join(current_app.root_path,
+                            'static/transcripts', pdf_fn)
+    form_pdf.save(pdf_path)
+
+    return pdf_path

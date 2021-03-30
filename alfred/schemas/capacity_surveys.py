@@ -11,5 +11,5 @@ class CapacitySurveySchema(BaseSchema):
     title = fields.String(required=True)
     start_date = fields.Date(required=True)
     end_date = fields.Date(required=True)
-    number_of_requests = fields.Integer(required=True)
+    number_of_requests = fields.Integer(required=False)
     comment = fields.String(required=True)

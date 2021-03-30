@@ -1,8 +1,6 @@
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.model import typefmt
 from alfred.models import Major
-
-
 # Show null values instead of empty strings.
 MY_DEFAULT_FORMATTERS = dict(typefmt.BASE_FORMATTERS)
 MY_DEFAULT_FORMATTERS.update({type(None): typefmt.null_formatter})
@@ -71,6 +69,11 @@ class CourseGradeView(ModelView):
 
 
 class CapacitySurveyView(ModelView):
+    form_excluded_columns = ['number_of_requests', 'course', 'students']
+    column_exclude_list = ['course', 'students']
+
+
+class StudentsRegisteredInSurveysView(ModelView):
     pass
 
 
@@ -84,4 +87,3 @@ class PetitionStatusView(ModelView):
 
 class PetitionTypeView(ModelView):
     pass
-

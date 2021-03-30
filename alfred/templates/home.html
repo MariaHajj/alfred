@@ -1,4 +1,15 @@
 {% extends 'layout.html' %}
+
+
 {% block content %}
+<h1>Announcements</h1>
+{%for announcement in announcements %}
+<div class="content-section">
+          <h5 ><b>{{announcement.title}}</b></h5>
+          <h6 >{{announcement.upload_date}}</h6>
+          <p>{{announcement.description}}</p>
+ </div>
+{%endfor %}
+
 
 {% endblock content %}

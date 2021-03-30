@@ -30,6 +30,12 @@ class PetitionDAO():
     def get_by_id(self, petition_id):
         return db.session.query(Petition).get(petition_id)
 
+    def get_by_user(self, user):
+        return db.session.query(Petition).filter_by(user=user).all()
+
+    def get_total_num(self, user):
+        return db.session.query(Petition).filter_by(user=user).count()
+
     def delete_petition_by_id(self, petition_id):
         db.session.query(Petition).filter_by(id=petition_id).delete()
         db.session.commit()

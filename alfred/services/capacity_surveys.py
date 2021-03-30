@@ -20,13 +20,12 @@ class CapacitySurveyService():
     def create_capacity_survey(self, title, start_date, end_date,
                                number_of_requests, comment):
         if (title is None) or (start_date is None) or (end_date is None)\
-           or (number_of_requests is None) or (comment is None):
+             or (comment is None):
             return None
 
         capacity_survey = CapacitySurvey(title=title,
                                          start_date=start_date,
                                          end_date=end_date,
-                                         number_of_requests=number_of_requests,
                                          comment=comment)
         capacity_survey_dao.add(capacity_survey)
         return capacity_survey

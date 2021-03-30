@@ -2,8 +2,7 @@ from alfred.schemas.terms import TermSchema
 from alfred.dao.terms import term_dao
 from alfred.services.terms import term_service
 
-from flask_restx import Namespace, Resource, reqparse
-from flask_restful import inputs
+from flask_restx import Namespace, Resource, reqparse, inputs
 
 
 api = Namespace('terms', description='Term-related operations')

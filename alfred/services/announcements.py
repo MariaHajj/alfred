@@ -25,7 +25,8 @@ class AnnouncementService():
         announcement_dao.add(announcement)
         return announcement
 
-    def update_announcement(self, announcement_id, title=None, description=None):
+    def update_announcement(self, announcement_id, title=None,
+                            description=None):
         if (announcement_id is None):
             return False
 

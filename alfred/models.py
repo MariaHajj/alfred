@@ -4,7 +4,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from flask_validator import ValidateEmail
 from sqlalchemy.orm import validates
 from sqlalchemy import CheckConstraint
-import datetime
+from datetime import datetime, timezone
 
 
 @login_manager.user_loader
@@ -55,8 +55,8 @@ class User(db.Model, UserMixin):
     course_grade = db.relationship('CourseGrade', back_populates='user')
 
     def __repr__(self):
-        return (f"User('{self.first_name} {self.last_name}',\
-                       '{self.aub_id}', {self.major})")
+        return (f"'{self.first_name} {self.last_name}', '{self.email}'\
+                       '{self.aub_id}', {self.major}")
 
     @hybrid_property
     def password(self):
@@ -115,7 +115,7 @@ class Announcement(db.Model):
     title = db.Column(db.String(45), unique=False, nullable=False)
     description = db.Column(db.String(500), unique=False, nullable=False)
     upload_date = db.Column(db.DateTime,
-                            default=datetime.datetime.now)
+                            default=datetime.now(timezone.utc))
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='announcement')
@@ -336,18 +336,18 @@ class CapacitySurvey(db.Model):
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     comment = db.Column(db.String(500), unique=False, nullable=False)
-    number_of_requests = db.Column(db.Integer, nullable=False)
+    number_of_requests = db.Column(db.Integer, default='0')
 
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     course = db.relationship('Course', back_populates='capacity_survey')
+    students = db.relationship('StudentsRegisteredInSurveys',
+                               backref='surveys')
 
-    def __init__(self, title, start_date, end_date,
-                 comment, number_of_requests):
+    def __init__(self, title, start_date, end_date, comment):
         self.title = title
         self.start_date = start_date
         self.end_date = end_date
         self.comment = comment
-        self.number_of_requests = number_of_requests
 
     def __repr__(self):
         return(f"{self.title} | "
@@ -355,16 +355,26 @@ class CapacitySurvey(db.Model):
                f"{self.comment}")
 
 
+class StudentsRegisteredInSurveys(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    survey_id = db.Column(db.Integer, db.ForeignKey('capacity_survey.id'))
+    student_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __init__(self, survey_id, student_id):
+        self.survey_id = survey_id
+        self.student_id = student_id
+
+
 class Petition(db.Model):
     __tablename__ = 'petition'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    transcript = db.Column(db.String(25), nullable=False)
+    transcript = db.Column(db.String(100), nullable=False)
     request_comment = db.Column(db.String(500), unique=False, nullable=False)
-    date_submitted = db.Column(db.DateTime, default=datetime.datetime.now)
-    decision_comment = db.Column(db.String(500), unique=False, nullable=False)
-    advisor_comment = db.Column(db.String(500), unique=False)
-    date_decided = db.Column(db.Date, nullable=False)
+    date_submitted = db.Column(db.DateTime, default=datetime.utcnow())
+    decision_comment = db.Column(db.String(500), default=None)
+    advisor_comment = db.Column(db.String(500), default=None)
+    date_decided = db.Column(db.Date, default=None)
 
     petition_type_id = db.Column(db.Integer, db.ForeignKey('petition_type.id'))
     petition_type = db.relationship('PetitionType', back_populates='petition')
@@ -375,22 +385,24 @@ class Petition(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     course = db.relationship('Course', back_populates='petition')
 
-    status_id = db.Column(db.Integer, db.ForeignKey('petition_status.id'))
-    status = db.relationship('PetitionStatus', back_populates='petition')
+    petition_status_id = db.Column(db.Integer,
+                                   db.ForeignKey('petition_status.id'))
+    petition_status = db.relationship('PetitionStatus',
+                                      back_populates='petition')
 
     def __init__(self, transcript, request_comment, date_submitted,
-                 advisor_comment, decision_comment, date_decided):
+                 petition_type, course, petition_status, advisor_comment,
+                 decision_comment, date_decided, user):
         self.transcript = transcript
         self.request_comment = request_comment
         self.date_submitted = date_submitted
+        self.petition_type = petition_type
+        self.course = course
+        self.petition_status = petition_status
         self.advisor_comment = advisor_comment
         self.decision_comment = decision_comment
         self.date_decided = date_decided
-
-    def __repr__(self):
-        return(f"Request comment: {self.request_comment}"
-               f"Date of decision: {self.date_decided}"
-               f"Decision comment: {self.decision_comment}")
+        self.user = user
 
 
 class PetitionType(db.Model):
@@ -398,7 +410,7 @@ class PetitionType(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     name = db.Column(db.String(45), unique=True, nullable=False)
-    description = db.Column(db.String(500), unique=False, nullable=False)
+    description = db.Column(db.String(500), nullable=False)
 
     petition = db.relationship('Petition', back_populates='petition_type')
 
@@ -416,9 +428,9 @@ class PetitionStatus(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     name = db.Column(db.String(50), unique=True, nullable=False)
-    description = db.Column(db.String(500), unique=False, nullable=False)
+    description = db.Column(db.String(500))
 
-    petition = db.relationship('Petition', back_populates='status')
+    petition = db.relationship('Petition', back_populates='petition_status')
 
     def __init__(self, name, description):
         self.name = name
