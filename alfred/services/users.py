@@ -17,9 +17,9 @@ class UserService():
         return UserService.__instance__
 
     def create_user(self, aub_id, email, first_name,
-                    last_name, password):
+                    last_name, major, password):
         if (aub_id is None) or (email is None) or (first_name is None) \
-           or (last_name is None) or (password is None):
+           or (last_name is None) or (major is None) or (password is None):
             return None
 
         user = user_dao.get_by_email(email=email)
@@ -28,19 +28,19 @@ class UserService():
                         email=email.casefold(),
                         first_name=first_name,
                         last_name=last_name,
-                        # major=major,
+                        major=major,
                         password=password)
             user_dao.add(user)
             return user
         return None
 
-    def update_user(self, user_id, aub_id=None, first_name=None,
-                    last_name=None, image_file=None):
+    def update_user(self, user_id, aub_id=None, email=None,
+                    first_name=None, last_name=None, image_file=None):
         if (user_id is None):
             return False
 
-        if (aub_id is None) and (first_name is None) and (last_name is None) \
-           and (image_file is None):
+        if (aub_id is None) and (email is None) and (first_name is None) and \
+           (last_name is None) and (image_file is None):
             return False
 
         try:
@@ -48,6 +48,8 @@ class UserService():
 
             if aub_id:
                 user.aub_id = aub_id
+            if email:
+                user.email = email
             if first_name:
                 user.first_name = first_name
             if last_name:

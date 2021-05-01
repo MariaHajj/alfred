@@ -1,21 +1,104 @@
 {% extends 'layout.html' %}
 
-
 {% block content %}
-
 <main role="main" class="container">
-    <h1>{{Petition_type.name}}</h1>
-      <div class="row">
+    <div class="row">
         <div class="col-md-8">
-         <div class="content-section">
-         add form here
-         </div>
+<div class="content-section">
+    <form class="" action="" method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <h1>Petition</h1>
+            <div class="form-group">
+            <label for="transcript"> Upload Transcript </label><br>
+                {{ form.transcript(class="form-control-file")}}
+                {% if form.transcript.errors %}
+                    {% for error in form.transcript.errors %}
+                        <span class="text-danger">{{ error }} </span></br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="form-group" placeholder="Petition Type">
+                {{ form.petition_type.label(class="form-control-label") }}
+                {% if form.petition_type.errors %}
+                    {{ form.petition_type(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.petition_type.errors %}
+                            <span>
+                                {{ error }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.petition_type(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <div class="form-group" placeholder="Course">
+                {{ form.course.label(class="form-control-label") }}
+                {% if form.course.errors %}
+                    {{ form.course(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.course.errors %}
+                            <span>
+                                {{ error }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.course(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <div class="form-group" placeholder="Description">
+                {{ form.request_comment.label(class="form-control-label") }}
+                {% if form.request_comment.errors %}
+                    {{ form.request_comment(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.request_comment.errors %}
+                            <span>
+                                {{ error }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.request_comment(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
         </div>
+    </form>
+</div>
+            </div>
+
         <div class="col-md-4">
-          <div class="content-section">
-            {{Petition_type.description}}
+                <script>
+                let petition_type_select =document.getElementById('petition_type');
+                petition_type_select.onchange = function(){
+                    type= petition_type_select.value
+                fetch('/description/'+ type).then(function(response){
+                    response.json().then(function(data){
+                    for(let i of data.petition){
+                      document.getElementById("description").innerHTML= i.description
+                        }
+                    });
+
+                });
+
+
+                                }
+            </script>
+          <div class="content-section" id="description">
+
+                         {{petition_type[0].description}}
+
           </div>
         </div>
       </div>
-    </main>
+
+      </main>
 {% endblock content %}

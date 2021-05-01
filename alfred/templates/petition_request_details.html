@@ -2,43 +2,39 @@
 
 
 {% block content %}
-<h1>Requesting Capacity</h1>
-
+<h1>{{petition_details.petition_type.name}}</h1>
 <div class="content-section">
 <table class="table table-striped">
   <tr>
 					<td width="20%" class="tdColor"><strong>Student Full Name</strong></td>
-					<td width="33%" colspan="2">Name</td>
+					<td width="33%" colspan="2">{{petition_details.user.first_name}} {{petition_details.user.last_name}}</td>
 					<td width="18%"  class="tdColor"><strong>Student ID Number</strong></td>
-					<td width="29%">ID</td>
+					<td width="29%">{{petition_details.user.aub_id}}</td>
   </tr>
 
   <tr>
-					<td class="tdColor"><strong>Class</strong></td>
-					<td colspan="2">Senior</td>
+                    <td class="tdColor"><strong>Major</strong></td>
+                    <td colspan="2">{{petition_details.user.major.name}}</td>
 					<td class="tdColor"><strong>Faculty</strong></td>
-					<td>Arts & Sciences </td>
+                    <td>xx</td>
   </tr>
 
 
   <tr>
-					<td class="tdColor"><strong>Major</strong></td>
-					<td colspan="2">Bachelor in Computer Science</td>
 					<td class="tdColor"><strong>GPA</strong></td>
-					<td>gpa </td>
+					<td  colspan="4">gpa </td>
   </tr>
 
     <tr>
 					<td class="tdColor"><strong>Course</strong></td>
-					<td colspan="4">CMPS 283</td>
+					<td colspan="4">{{petition_details.course.code}} {{petition_details.course.number}}</td>
 
    </tr>
   <tr>
 					<td class="tdColor"><strong>Student Comment</strong></td>
-					<td colspan="4">comment</td>
+					<td colspan="4">{{petition_details.request_comment}}</td>
 
    </tr>
-
 
 
 </table>
@@ -47,18 +43,13 @@
 <div class="content-section">
 <table class="table table-striped">
  <tr>
-			<td width="22%" class="tdColor"><strong>Reviewer Type</strong><br><strong>Reviewer Name</strong>
-              <br><strong>Date</strong><br>
+			<td width="20%" class="tdColor"><strong>Date</strong><br>
 			   <strong>Recommendation</strong></td>
-		<td colspan="4" valign="top">Student Adviser<br>name <br>date<br>comment</td>
+		<td colspan="4" valign="top">{{petition_details.date_decided}}<br>{{petition_details.petition_status.name}}</td>
  </tr>
 
 
-
-
 </table>
- </div>
-
-
+</div>
 
 {% endblock content %}

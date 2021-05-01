@@ -12,6 +12,6 @@ class UserSchema(BaseSchema):
     email = fields.Email(required=True)
     first_name = fields.String(required=True)
     last_name = fields.String(required=True)
-    # major = fields.String(required=True)
+    major = fields.String(required=True)
     password = fields.String(required=True)
     image_file = fields.String(required=True)

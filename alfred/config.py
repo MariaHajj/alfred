@@ -8,10 +8,8 @@ class BaseConfig:
     MAIL_SERVER = 'smtp.office365.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-
     MAIL_USERNAME =os.environ['MAIL_USERNAME']
     MAIL_PASSWORD =os.environ['MAIL_PASSWORD']
-
 
 class TestConfig(BaseConfig):
     TESTING = True

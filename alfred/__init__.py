@@ -21,7 +21,8 @@ mail = Mail()
 from alfred.models import Role, Major, Department, Faculty, User
 from alfred.models import CourseAvailability, Announcement, Course
 from alfred.models import CourseGrade, Term, Frequency, Availability
-from alfred.models import CapacitySurvey, StudentsRegisteredInSurveys, Petition, PetitionType
+from alfred.models import CapacitySurvey, Petition, PetitionType
+from alfred.models import StudentsRegisteredInSurveys
 from alfred.models import PetitionStatus
 
 from flask_admin import Admin
@@ -29,10 +30,12 @@ from alfred.admin_views import DepartmentView, FacultyView, UserView
 from alfred.admin_views import MajorView, RoleView, AnnouncementView
 from alfred.admin_views import CourseView, CourseAvailabilityView
 from alfred.admin_views import AvailabilityView, FrequencyView, TermView
-from alfred.admin_views import CourseGradeView, CapacitySurveyView,StudentsRegisteredInSurveysView
+from alfred.admin_views import CourseGradeView, CapacitySurveyView
+from alfred.admin_views import StudentsRegisteredInSurveysView
 from alfred.admin_views import PetitionView, PetitionTypeView
 from alfred.admin_views import PetitionStatusView
 from sqlalchemy import desc
+
 
 admin = Admin(name='alfred Admin', template_mode='bootstrap3')
 # Add administrative views here
@@ -49,30 +52,30 @@ admin.add_view(AvailabilityView(Availability, db.session))
 admin.add_view(CourseAvailabilityView(CourseAvailability, db.session))
 admin.add_view(CourseGradeView(CourseGrade, db.session))
 admin.add_view(CapacitySurveyView(CapacitySurvey, db.session))
-admin.add_view(StudentsRegisteredInSurveysView(StudentsRegisteredInSurveys, db.session))
+admin.add_view(StudentsRegisteredInSurveysView(StudentsRegisteredInSurveys,
+                                               db.session))
 admin.add_view(PetitionTypeView(PetitionType, db.session))
-admin.add_view(PetitionView(Petition, db.session))
 admin.add_view(PetitionStatusView(PetitionStatus, db.session))
+admin.add_view(PetitionView(Petition, db.session))
 
 
 # Image dimensions
 MAX_HEIGHT = 400
 MAX_WIDTH = 400
 
+
 def create_app(config_class=BaseConfig):
     app = Flask(__name__)
     app.config.from_object(config_class)
-
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
     admin.init_app(app)
     from alfred.core.users.views import users
-    from alfred.core.main.routes import main
-    from alfred.core.surveys.routes import surveys
-    from alfred.core.petitions.routes import petitions
-
+    from alfred.core.home.views import main
+    from alfred.core.capacity_surveys.views import surveys
+    from alfred.core.petitions.views import petitions
 
     from alfred.core.errors.handlers import errors
 
@@ -87,7 +90,7 @@ def create_app(config_class=BaseConfig):
 
     @app.context_processor
     def inject_user():
-        CapacitySurveys = CapacitySurvey.query.order_by(desc(CapacitySurvey.start_date)).all()
-        PetitionTypes = PetitionType.query.all()
-        return dict(CapacitySurveys=CapacitySurveys, PetitionTypes=PetitionTypes)
+        CapacitySurveys = CapacitySurvey.query\
+            .order_by(desc(CapacitySurvey.start_date)).all()
+        return dict(CapacitySurveys=CapacitySurveys)
     return app

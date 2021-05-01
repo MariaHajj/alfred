@@ -57,9 +57,7 @@
                   <li class="nav-item active">
                     <a class="nav-link" href="{{ url_for('main.home') }}">Home <span class="sr-only">(current)</span></a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
-                  </li>
+
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('main.catalogue') }}">Catalogue</a>
@@ -72,14 +70,9 @@
                             {%endfor %}
                             </div>
                    </li>
-                    <li class="nav-item dropdown">
-                    <a class="nav-link" >Petitions</a>
-                        <div class="dropdown-content">
-                            {%for type in PetitionTypes %}
-                            <a href="{{ url_for('petitions.petitions_form', id=type.id) }}">{{type.name}}</a>
-                            {%endfor %}
-                            </div>
-                   </li>
+                   <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('petitions.petition') }}">Petition</a>
+                    </li>
                     <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('petitions.request_history') }}">Request History</a>
                    </li>
