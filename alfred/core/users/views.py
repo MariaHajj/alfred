@@ -1,8 +1,15 @@
+from requests.sessions import session
+from wtforms.validators import email
 from alfred.core.users.api import api
 from flask import Blueprint, request
 from flask import render_template, flash, redirect, url_for
 import requests
 import json
+from flask_admin import expose
+from functools import wraps
+from flask import abort
+from flask_login import current_user
+from alfred.models import ACCESS, User
 
 from alfred.core.users.forms import (RegistrationForm, LoginForm,
                                      UpdateAccountForm)
@@ -38,14 +45,15 @@ def register():
         last_name = form.last_name.data
         major = form.major.data
         password = form.password.data
+        access = 1
 
-        result = requests.post('http://127.0.0.1:5000/api/1/users/add',
-                               params=dict(aub_id=aub_id,
-                                           email=email,
-                                           first_name=first_name,
-                                           last_name=last_name,
-                                           major=major,
-                                           password=password))
+        result = user_service.create_user(aub_id=aub_id,
+                                          email=email,
+                                          first_name=first_name,
+                                          last_name=last_name,
+                                          major=major,
+                                          password=password,
+                                          access=access)
 
         if result.status_code == 201:
             flash('Account created! You can now log in.', 'success')
@@ -66,17 +74,29 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = user_dao.get_by_email(email=form.email.data.casefold())
-        if user and user.verify_password(form.password.data):
+        if user and user.verify_password(form.password.data)\
+           and (user.access == 1):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page \
                 else redirect(url_for('main.home'))
+        elif user.access == 2:
+            return redirect('/admin')
         else:
             flash("Login unsuccessful!", 'danger')
 
     return render_template('login.html',
                            title='Log in',
                            form=form)
+
+
+@expose('/admin')
+@expose('/admin/')
+def for_admins_only():
+    if current_user.access != 2:
+        return "Admin only!"
+    else:
+        redirect(url_for('admin/master.html'))
 
 
 @users.route("/logout",
@@ -95,7 +115,7 @@ def account():
     if form.validate_on_submit():
         if form.image.data or form.aub_id.data or form.email.data:
             image_file = save_image(form.image.data, path="profile_pictures")
-            new_aub_id = form.aub_id.data
+            new_aub_id = current_user.aub_id
             new_first_name = form.first_name.data
             new_last_name = form.last_name.data
             user_id = current_user.id

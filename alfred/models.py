@@ -24,6 +24,13 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+ACCESS = {
+    'guest': 0,
+    'user': 1,
+    'admin': 2
+}
+
+
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
@@ -54,6 +61,18 @@ class User(db.Model, UserMixin):
 
     course_grade = db.relationship('CourseGrade', back_populates='user')
 
+    access = db.Column(db.Integer, unique=True, nullable=False)
+
+    def __init__(self, aub_id, email, first_name, last_name, major,
+                 password, access):
+        self.aub_id = aub_id
+        self.email = email
+        self.first_name = first_name
+        self.last_name = last_name
+        self.major = major
+        self.user_password = password
+        self.access = access
+
     def __repr__(self):
         return (f"'{self.first_name} {self.last_name}', '{self.email}'\
                        '{self.aub_id}', {self.major}")
@@ -79,6 +98,12 @@ class User(db.Model, UserMixin):
                       check_deliverability=True,
                       throw_exception=True,
                       message="The e-mail is invalid.")
+
+    def is_admin(self):
+        return self.access == ACCESS['admin']
+
+    def allowed(self, access_level):
+        return self.access >= access_level
 
 
 class Role(db.Model):

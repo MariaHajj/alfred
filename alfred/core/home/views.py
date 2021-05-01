@@ -3,6 +3,9 @@ from alfred import db
 from alfred.models import Announcement
 from sqlalchemy import desc
 from flask_login import login_required
+from flask import redirect
+
+
 main = Blueprint('main', __name__)
 
 
@@ -18,4 +21,4 @@ def home():
 @main.route("/catalogue")
 @login_required
 def catalogue():
-    return render_template('catalogue.html', title='Catalogue')
+    return render_template('catalogue.html', title="Catalogue")

@@ -1,15 +1,8 @@
 {% extends 'layout.html' %}
-
 {% block content %}
-<h1>Catalogue</h1>
-<div class="content-section">
+<div class="cv-container">
 
-          <h5 ><b>Name</b></h5>
-          <p>description</p>
-         <hr>
-        <h5 ><b>Name</b></h5>
+     <object data="{{ url_for('static', filename='catalogue/computerscience.pdf')}}" type="application/pdf" style="min-height:100vh;width:100%"></object>
 
-          <p>description</p>
-     </div>
-
+ </div>
 {% endblock content %}

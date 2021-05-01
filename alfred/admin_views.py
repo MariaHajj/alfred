@@ -15,7 +15,8 @@ class UserView(ModelView):
         'password',
         'role',
         'advisor',
-        'major'
+        'major',
+        'access'
     )
     column_sortable_list = ('first_name', ('major', 'major.id', 'id'))
     column_searchable_list = ('aub_id', 'email', 'first_name',
