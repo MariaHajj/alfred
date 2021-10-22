@@ -1,6 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-md-8">
 <div class="content-section">
     <form class="" action="" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
@@ -70,6 +73,32 @@
         </div>
     </form>
 </div>
+            </div>
+
+        <div class="col-md-4">
+                <script>
+                let petition_type_select =document.getElementById('petition_type');
+                petition_type_select.onchange = function(){
+                    type= petition_type_select.value
+                fetch('/description/'+ type).then(function(response){
+                    response.json().then(function(data){
+                    for(let i of data.petition){
+                      document.getElementById("description").innerHTML= i.description
+                        }
+                    });
+
+                });
 
 
+                                }
+            </script>
+          <div class="content-section" id="description">
+
+                         {{petition_type[0].description}}
+
+          </div>
+        </div>
+      </div>
+
+      </main>
 {% endblock content %}
