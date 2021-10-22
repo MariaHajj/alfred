@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+{%for detail in petition_details %}
+<h1>{{detail.petition_type.name}}</h1>
+<div class="content-section">
+<table class="table table-striped">
+  <tr>
+					<td width="20%" class="tdColor"><strong>Student Full Name</strong></td>
+					<td width="33%" colspan="2">{{detail.user.first_name}} {{detail.user.last_name}}</td>
+					<td width="18%"  class="tdColor"><strong>Student ID Number</strong></td>
+					<td width="29%">{{detail.user.aub_id}}</td>
+  </tr>
+
+  <tr>
+                    <td class="tdColor"><strong>Major</strong></td>
+                    <td colspan="2">{{detail.user.major.name}}</td>
+					<td class="tdColor"><strong>Faculty</strong></td>
+					<td>{{detail.user.major.department.faculty}}</td>
+  </tr>
+
+
+  <tr>
+					<td class="tdColor"><strong>GPA</strong></td>
+					<td  colspan="4">gpa </td>
+  </tr>
+
+    <tr>
+					<td class="tdColor"><strong>Course</strong></td>
+					<td colspan="4">{{detail.course.code}} {{detail.course.number}}</td>
+
+   </tr>
+  <tr>
+					<td class="tdColor"><strong>Student Comment</strong></td>
+					<td colspan="4">{{detail.request_comment}}</td>
+
+   </tr>
+
+
+</table>
+ </div>
+
+<div class="content-section">
+<table class="table table-striped">
+ <tr>
+			<td width="20%" class="tdColor"><strong>Date</strong><br>
+			   <strong>Recommendation</strong></td>
+		<td colspan="4" valign="top">{{detail.date_decided}}<br>{{detail.petition_status.name}}</td>
+ </tr>
+
+
+</table>
+</div>
+
+{% endfor %}
+{% endblock content %}

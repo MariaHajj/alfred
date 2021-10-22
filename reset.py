@@ -1,4 +1,4 @@
-from boilerplate import create_app, db
+from alfred import create_app, db
 
 
 if __name__ == '__main__':
