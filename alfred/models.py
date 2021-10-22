@@ -10,25 +10,16 @@ from datetime import datetime, timezone
 @login_manager.user_loader
 def load_user(user_id):
     """Get the current logged-in User object.
-
     Parameters
     ----------
     user_id : [int]
         User ID.
-
     Returns
     -------
     [User]
         A User object (see alfred.models).
     """
     return User.query.get(int(user_id))
-
-
-ACCESS = {
-    'guest': 0,
-    'user': 1,
-    'admin': 2
-}
 
 
 class User(db.Model, UserMixin):
@@ -60,18 +51,7 @@ class User(db.Model, UserMixin):
     petition = db.relationship('Petition', back_populates='user')
 
     course_grade = db.relationship('CourseGrade', back_populates='user')
-
-    access = db.Column(db.Integer, unique=True, nullable=False)
-
-    def __init__(self, aub_id, email, first_name, last_name, major,
-                 password, access):
-        self.aub_id = aub_id
-        self.email = email
-        self.first_name = first_name
-        self.last_name = last_name
-        self.major = major
-        self.user_password = password
-        self.access = access
+    surveys = db.relationship('StudentsRegisteredInSurveys', backref='students')
 
     def __repr__(self):
         return (f"'{self.first_name} {self.last_name}', '{self.email}'\
@@ -99,12 +79,6 @@ class User(db.Model, UserMixin):
                       throw_exception=True,
                       message="The e-mail is invalid.")
 
-    def is_admin(self):
-        return self.access == ACCESS['admin']
-
-    def allowed(self, access_level):
-        return self.access >= access_level
-
 
 class Role(db.Model):
     __tablename__ = 'role'
@@ -112,25 +86,14 @@ class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(45), unique=True, nullable=False)
 
-    # The role marked as default will be the one assigned to new users
-    # upon registration. Since the application is going to search
-    # the roles table to find the default one, this column is configured
-    # to have an index, as that will make searches much faster.
-    # default = db.Column(db.Boolean, default=False, index=True)
-
-    # permissions field, which is an integer value that defines the list
-    # of permissions for the role in a compact way (for later setup)
-    # permissions = db.Column(db.Integer)
 
     users = db.relationship('User', back_populates='role', lazy='dynamic')
 
-    def __init__(self, title, description, user):
+    def __init__(self, title):
         self.title = title
-        self.description = description
-        self.user = user
 
     def __repr__(self):
-        return(f"{self.User}'s role: {self.title}")
+        return(f"{self.title}")
 
 
 class Announcement(db.Model):
@@ -358,7 +321,7 @@ class CapacitySurvey(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     title = db.Column(db.String(45), unique=False, nullable=False)
-    start_date = db.Column(db.Date, nullable=False)
+    start_date = db.Column(db.Date, nullable=False, default=datetime.utcnow())
     end_date = db.Column(db.Date, nullable=False)
     comment = db.Column(db.String(500), unique=False, nullable=False)
     number_of_requests = db.Column(db.Integer, default='0')

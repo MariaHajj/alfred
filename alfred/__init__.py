@@ -67,13 +67,11 @@ MAX_WIDTH = 400
 def create_app(config_class=BaseConfig):
     app = Flask(__name__)
     app.config.from_object(config_class)
-
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
     admin.init_app(app)
-
     from alfred.core.users.views import users
     from alfred.core.home.views import main
     from alfred.core.capacity_surveys.views import surveys

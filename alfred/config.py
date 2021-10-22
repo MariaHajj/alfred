@@ -1,3 +1,5 @@
+import os
+
 
 class BaseConfig:
     SECRET_KEY = '60808326457a6384f78964761aaa161c'
@@ -5,6 +7,11 @@ class BaseConfig:
     # This is to suppress SQLAlchemy warnings
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     FLASK_ADMIN_SWATCH = 'flatly'
+    MAIL_SERVER = 'smtp.office365.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.environ['MAIL_USERNAME']
+    MAIL_PASSWORD = os.environ['MAIL_PASSWORD']
 
 
 class TestConfig(BaseConfig):

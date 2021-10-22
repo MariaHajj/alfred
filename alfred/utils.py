@@ -6,7 +6,6 @@ from PIL import Image, ImageFile
 
 def save_image(source_image, path, output_size=(125, 125)):
     """Compress and save user-uploaded images to the filesystem.
-
     Parameters
     ----------
     source_image : [WTForm.image]
@@ -16,7 +15,6 @@ def save_image(source_image, path, output_size=(125, 125)):
         Base dir to save image.
     output_size : tuple, optional
         Desired output size, default is (125, 125).
-
     Returns
     -------
     [image_fn]
@@ -43,14 +41,12 @@ def save_image(source_image, path, output_size=(125, 125)):
 
 def compress_image(image, output_size=(125, 125)):
     """Compress input image.
-
     Parameters
     ----------
     image : [image]
         Any valid image.
     output_size : tuple, optional
         Desired output size, default is (125, 125).
-
     Returns
     -------
     [i]
