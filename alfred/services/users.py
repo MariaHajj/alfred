@@ -1,3 +1,4 @@
+from alfred.dao.majors import major_dao
 from alfred.dao.users import user_dao, User, db
 
 
@@ -17,7 +18,7 @@ class UserService():
         return UserService.__instance__
 
     def create_user(self, aub_id, email, first_name,
-                    last_name, major, password, access):
+                    last_name, major, password, role):
         if (aub_id is None) or (email is None) or (first_name is None) \
            or (last_name is None) or (major is None) or (password is None):
             return None
@@ -28,20 +29,20 @@ class UserService():
                         email=email.casefold(),
                         first_name=first_name,
                         last_name=last_name,
-                        major=major,
+                        major=major_dao.get_by_name(major),
                         password=password,
-                        access=access)
+                        role=role)
             user_dao.add(user)
             return user
         return None
 
-    def update_user(self, user_id, aub_id, email,
-                    first_name, last_name, image_file):
+    def update_user(self, user_id, aub_id=None, email=None,
+                    first_name=None, last_name=None, image_file=None):
         if (user_id is None):
             return False
 
-        if (aub_id is None) or (email is None) or (first_name is None) or \
-           (last_name is None) or (image_file is None):
+        if (aub_id is None) and (email is None) and (first_name is None) and \
+           (last_name is None) and (image_file is None):
             return False
 
         try:
